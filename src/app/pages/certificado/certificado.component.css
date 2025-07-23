@@ -6,6 +6,7 @@
 
 .btn-voltar {
   gap: 6px;
+  cursor: pointer;
 }
 
 .btn-voltar p {
@@ -20,6 +21,7 @@
 .btn-voltar i {
   font-size: 20px;
   color: #64748b;
+
 }
 
 .certificado {

@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { SecondaryButtonComponent } from "../../_components/secondary-button/secondary-button.component";
 import { PrimaryButtonComponent } from "../../_components/primary-button/primary-button.component";
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Certificado } from '../../interfaces/certificado';
 import { CertificadoService } from '../../_services/certificado.service';
+
+import { v4 as uuidv4 } from 'uuid'
 
 @Component({
   selector: 'app-certificado-form',
@@ -15,6 +17,8 @@ import { CertificadoService } from '../../_services/certificado.service';
 export class CertificadoFormComponent {
 
   constructor(private certificadoService: CertificadoService) { }
+
+  @ViewChild('form') form!: NgForm
 
   nome: string = '';
   atividade: string = '';
@@ -27,7 +31,12 @@ export class CertificadoFormComponent {
   }
 
   adicionarAtividade() {
+    if (this.atividade.length == 0) {
+      return
+    }
+
     this.atividades.push(this.atividade);
+
     this.atividade = '';
   }
 
@@ -41,6 +50,7 @@ export class CertificadoFormComponent {
       return
     }
     this.certificado = {
+      id: uuidv4(),
       atividades: this.atividades,
       nome: this.nome,
       dataEmissao: this.dataAtual()
@@ -48,6 +58,19 @@ export class CertificadoFormComponent {
 
     this.certificadoService.adicionarCertificado(this.certificado);
 
+    this.certificado = this.limparForm()
+    this.form.resetForm;
+
+  }
+
+
+  limparForm() {
+    return {
+      nome: '',
+      atividades: [],
+      id: '',
+      dataEmissao: ''
+    }
   }
 
   dataAtual() {

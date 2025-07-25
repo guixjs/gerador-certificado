@@ -25,7 +25,7 @@
           class="form-control custom-input" id="atividade" placeholder="Atividade concluída" name="atividade">
       </div>
       <app-secondary-button (click)="adicionarAtividade()" textoBotao="Adicionar" phClass="ph ph-plus"
-        [disabled]="atividade.length == 1">
+        [disabled]="!atividade || atividade.length == 0">
       </app-secondary-button>
     </div>
     <div class="atividade-group">

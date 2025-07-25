@@ -1,5 +1,6 @@
 export interface Certificado {
   nome: string,
-  atividades: string[];
+  atividades: string[],
+  dataEmissao: string;
 
 }
